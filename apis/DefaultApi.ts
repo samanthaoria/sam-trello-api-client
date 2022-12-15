@@ -15,6 +15,23 @@
 
 import * as runtime from '../runtime';
 
+export interface UsersControllerCreateRequest {
+    body: object;
+}
+
+export interface UsersControllerFindOneRequest {
+    id: string;
+}
+
+export interface UsersControllerRemoveRequest {
+    id: string;
+}
+
+export interface UsersControllerUpdateRequest {
+    id: string;
+    body: object;
+}
+
 /**
  * 
  */
@@ -22,7 +39,7 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    async appControllerGetHelloRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async appControllerGetHelloRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -39,8 +56,149 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
-    async appControllerGetHello(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+    async appControllerGetHello(initOverrides?: RequestInit): Promise<void> {
         await this.appControllerGetHelloRaw(initOverrides);
+    }
+
+    /**
+     */
+    async usersControllerCreateRaw(requestParameters: UsersControllerCreateRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling usersControllerCreate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/users`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async usersControllerCreate(requestParameters: UsersControllerCreateRequest, initOverrides?: RequestInit): Promise<void> {
+        await this.usersControllerCreateRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async usersControllerFindAllRaw(initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/users`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async usersControllerFindAll(initOverrides?: RequestInit): Promise<void> {
+        await this.usersControllerFindAllRaw(initOverrides);
+    }
+
+    /**
+     */
+    async usersControllerFindOneRaw(requestParameters: UsersControllerFindOneRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling usersControllerFindOne.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async usersControllerFindOne(requestParameters: UsersControllerFindOneRequest, initOverrides?: RequestInit): Promise<void> {
+        await this.usersControllerFindOneRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async usersControllerRemoveRaw(requestParameters: UsersControllerRemoveRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling usersControllerRemove.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async usersControllerRemove(requestParameters: UsersControllerRemoveRequest, initOverrides?: RequestInit): Promise<void> {
+        await this.usersControllerRemoveRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async usersControllerUpdateRaw(requestParameters: UsersControllerUpdateRequest, initOverrides?: RequestInit): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling usersControllerUpdate.');
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling usersControllerUpdate.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/users/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PATCH',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async usersControllerUpdate(requestParameters: UsersControllerUpdateRequest, initOverrides?: RequestInit): Promise<void> {
+        await this.usersControllerUpdateRaw(requestParameters, initOverrides);
     }
 
 }
